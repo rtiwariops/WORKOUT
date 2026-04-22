@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1 Month Workout Plan</title>
+    <meta name="description" content="A 1-month workout plan with strength training, cardio, meal plan, and exercise video tutorials for a healthier, more aesthetic physique.">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -37,8 +38,8 @@
         .day-2 .day-header { background: linear-gradient(90deg, #0f3460, #16213e); }
         .day-3 .day-header { background: linear-gradient(90deg, #533483, #3b1f6e); }
         .day-4 .day-header { background: linear-gradient(90deg, #e94560, #c23152); }
-        .day-5 .day-header { background: linear-gradient(90deg, #533483, #3b1f6e); }
-        .day-6 .day-header { background: linear-gradient(90deg, #0f3460, #16213e); }
+        .day-5 .day-header { background: linear-gradient(90deg, #0f3460, #16213e); }
+        .day-6 .day-header { background: linear-gradient(90deg, #533483, #3b1f6e); }
         .day-body { padding: 20px 25px; }
         .muscle-info {
             background: #1a1a2e; border-radius: 8px; padding: 15px; margin-bottom: 20px;
@@ -125,10 +126,117 @@
             background: #1e1e3a; border-radius: 8px; padding: 15px; margin: 10px 0;
             color: #ccc; border-left: 3px solid #533483;
         }
+        .meal-plan {
+            background: #141422; border-radius: 12px; margin: 30px 0;
+            overflow: hidden; border: 1px solid #222;
+        }
+        .meal-plan-header {
+            padding: 20px 25px; font-size: 1.5rem; font-weight: bold; color: #fff;
+            background: linear-gradient(90deg, #0f7b3f, #0a5c2e);
+        }
+        .meal-plan-body { padding: 20px 25px; }
+        .meal-card {
+            background: #1a1a2e; border-radius: 10px; padding: 20px; margin: 15px 0;
+            border: 1px solid #2a2a3e; display: flex; justify-content: space-between;
+            align-items: flex-start; flex-wrap: wrap; gap: 15px;
+        }
+        .meal-card .meal-name {
+            font-size: 1.1rem; font-weight: bold; color: #4ecca3;
+            margin-bottom: 8px;
+        }
+        .meal-card .meal-items { color: #ccc; }
+        .meal-card .meal-items li { margin: 4px 0; list-style: none; }
+        .meal-card .meal-items li::before { content: '\2022'; color: #4ecca3; margin-right: 8px; }
+        .meal-macros {
+            background: #0f7b3f22; border: 1px solid #0f7b3f55; border-radius: 8px;
+            padding: 10px 16px; text-align: center; min-width: 160px;
+        }
+        .meal-macros .cal { font-size: 1.3rem; font-weight: bold; color: #4ecca3; }
+        .meal-macros .prot { font-size: 0.9rem; color: #aaa; margin-top: 2px; }
+        .meal-totals {
+            background: linear-gradient(135deg, #0f7b3f22, #0a5c2e22);
+            border: 2px solid #0f7b3f; border-radius: 10px;
+            padding: 20px; margin-top: 20px; text-align: center;
+        }
+        .meal-totals h3 { color: #4ecca3; margin-bottom: 10px; }
+        .meal-totals .stats {
+            display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+        }
+        .meal-totals .stat-item { text-align: center; }
+        .meal-totals .stat-value { font-size: 1.4rem; font-weight: bold; color: #fff; }
+        .meal-totals .stat-label { font-size: 0.85rem; color: #aaa; }
+        .meal-note {
+            background: #1a1a2e; border-radius: 8px; padding: 15px; margin-top: 15px;
+            font-size: 0.95rem; color: #aaa; border-left: 3px solid #4ecca3;
+        }
+        .meal-note strong { color: #4ecca3; }
+        #chat-toggle {
+            position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px;
+            background: #e94560; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(233,69,96,0.4);
+            z-index: 1000; transition: transform 0.2s;
+        }
+        #chat-toggle:hover { transform: scale(1.1); }
+        #chat-box {
+            position: fixed; bottom: 100px; right: 25px; width: 370px; max-height: 520px;
+            background: #1a1a2e; border: 1px solid #333; border-radius: 16px;
+            display: none; flex-direction: column; z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden;
+        }
+        #chat-header {
+            padding: 16px 18px; background: linear-gradient(90deg, #e94560, #c23152);
+            display: flex; justify-content: space-between; align-items: center; color: #fff;
+        }
+        #chat-messages {
+            flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column;
+            gap: 10px; max-height: 300px; min-height: 200px;
+        }
+        .chat-msg {
+            padding: 10px 14px; border-radius: 12px; font-size: 0.9rem;
+            line-height: 1.5; max-width: 85%; word-wrap: break-word;
+        }
+        .bot-msg {
+            background: #2a2a4a; color: #e0e0e0; align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .user-msg {
+            background: #e94560; color: #fff; align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .typing-msg { font-style: italic; color: #888; }
+        #chat-suggestions {
+            padding: 8px 16px; display: flex; flex-wrap: wrap; gap: 6px;
+            border-top: 1px solid #2a2a3e;
+        }
+        .suggestion {
+            background: #2a2a4a; color: #ccc; border: 1px solid #3a3a5a; border-radius: 20px;
+            padding: 5px 12px; font-size: 0.78rem; cursor: pointer; transition: all 0.2s;
+        }
+        .suggestion:hover { background: #e94560; color: #fff; border-color: #e94560; }
+        #chat-input-area {
+            padding: 12px 16px; display: flex; gap: 8px; border-top: 1px solid #2a2a3e;
+            background: #141422;
+        }
+        #chat-input {
+            flex: 1; background: #2a2a4a; border: 1px solid #3a3a5a; border-radius: 8px;
+            padding: 10px 14px; color: #fff; font-size: 0.9rem; outline: none;
+        }
+        #chat-input:focus { border-color: #e94560; }
+        #chat-input::placeholder { color: #666; }
+        #chat-send {
+            background: #e94560; border: none; border-radius: 8px; width: 42px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            transition: background 0.2s;
+        }
+        #chat-send:hover { background: #c23152; }
         @media (max-width: 600px) {
             .header h1 { font-size: 1.8rem; }
             .exercise-header { flex-direction: column; align-items: flex-start; }
             .video-wrapper { max-width: 100%; }
+            #chat-box { width: calc(100% - 20px); right: 10px; bottom: 90px; }
+            .meal-card { flex-direction: column; }
+            .meal-macros { width: 100%; }
+            .meal-totals .stats { gap: 15px; }
         }
     </style>
 </head>
@@ -144,10 +252,11 @@
     <div class="intro">
         <h2>Plan Overview</h2>
         <ul>
-            <li><strong>4 Days</strong> Strength Training + <strong>2 Days</strong> Cardio + <strong>1 Day</strong> Active Rest</li>
-            <li><strong>3 sets</strong> per exercise, reps: <strong>15, 12, 10</strong> (or 12, 10, 8)</li>
+            <li><strong>3 Days</strong> Strength Training + <strong>2 Days</strong> Abs &amp; Cardio + <strong>2 Days</strong> Active Rest</li>
+            <li><strong>2&ndash;3 sets</strong> per exercise, reps: <strong>15, 12, 10</strong> or <strong>12, 10, 8</strong></li>
             <li>Always train with proper <strong>muscle-mind connection</strong> &mdash; this is the fastest way to build muscle</li>
             <li>Start every exercise with light weight for blood flow and focus</li>
+            <li><strong>Daily mobility, stretching, meditation &amp; deep breathing</strong> are compulsory</li>
         </ul>
     </div>
 
@@ -165,20 +274,20 @@
 
     <!-- DAY 1 -->
     <div class="day-card day-1">
-        <div class="day-header">Day 1 &mdash; Quadriceps</div>
+        <div class="day-header">Day 1 &mdash; Legs</div>
         <div class="day-body">
             <div class="muscle-info">
-                <strong>Target Muscles:</strong> Rectus Femoris (middle), Vastus Lateralis (outer), Vastus Medialis (inner/teardrop), Vastus Intermedius (deep)
+                <strong>Target Muscles:</strong> Quadriceps, Hamstrings, Glutes, Core
             </div>
 
             <div class="exercise">
                 <div class="exercise-header">
-                    <span class="exercise-name">1. Barbell Squats (Free or Weighted)</span>
+                    <span class="exercise-name">1. Free Squats or Weighted Squats</span>
                     <span class="exercise-sets">3 Sets &mdash; 15, 12, 10 reps</span>
                 </div>
                 <div class="video-wrapper" data-id="tVB1q8zkP3o">
                     <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/tVB1q8zkP3o/hqdefault.jpg" alt="Barbell Squat Form">
+                        <img loading="lazy" src="https://img.youtube.com/vi/tVB1q8zkP3o/hqdefault.jpg" alt="Squat Form">
                         <div class="play-btn"></div>
                     </div>
                     <div class="video-label">Squat &mdash; Bodybuilding.com Exercise Guide</div>
@@ -187,26 +296,12 @@
 
             <div class="exercise">
                 <div class="exercise-header">
-                    <span class="exercise-name">2. Hack Squats</span>
-                    <span class="exercise-sets">3 Sets &mdash; 15, 12, 10 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="0tn5K9NlCfo">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/0tn5K9NlCfo/hqdefault.jpg" alt="Hack Squat Form">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Hack Squat &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">3. Forward Lunges</span>
+                    <span class="exercise-name">2. Forward Lunges</span>
                     <span class="exercise-sets">3 Sets &mdash; 12, 12, 10 reps</span>
                 </div>
                 <div class="video-wrapper" data-id="xu4ahA2VJuo">
                     <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/xu4ahA2VJuo/hqdefault.jpg" alt="Forward Lunges Form">
+                        <img loading="lazy" src="https://img.youtube.com/vi/xu4ahA2VJuo/hqdefault.jpg" alt="Forward Lunges Form">
                         <div class="play-btn"></div>
                     </div>
                     <div class="video-label">Dumbbell Lunges &mdash; Bodybuilding.com Exercise Guide</div>
@@ -215,26 +310,42 @@
 
             <div class="exercise">
                 <div class="exercise-header">
-                    <span class="exercise-name">4. Leg Extensions</span>
-                    <span class="exercise-sets">3 Sets &mdash; 15, 12, 10 reps</span>
+                    <span class="exercise-name">3. Step Up</span>
+                    <span class="exercise-sets">2 Sets &mdash; 15, 12 reps</span>
                 </div>
-                <div class="video-wrapper" data-id="yR_LqZYSIgM">
+                <div class="video-wrapper" data-id="7AtIjR-QqVA">
                     <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/yR_LqZYSIgM/hqdefault.jpg" alt="Leg Extension Form">
+                        <img loading="lazy" src="https://img.youtube.com/vi/7AtIjR-QqVA/hqdefault.jpg" alt="Dumbbell Step Up Form">
                         <div class="play-btn"></div>
                     </div>
-                    <div class="video-label">Leg Extensions &mdash; Bodybuilding.com Exercise Guide</div>
+                    <div class="video-label">Dumbbell Step Ups &mdash; Bodybuilding.com Exercise Guide</div>
                 </div>
             </div>
 
             <div class="exercise">
                 <div class="exercise-header">
-                    <span class="exercise-name">5. Leg Raises + Plank Hold</span>
+                    <span class="exercise-name">4. Leg Curl</span>
+                    <span class="exercise-sets">3 Sets &mdash; 15, 12, 8 reps</span>
+                </div>
+                <div class="video-wrapper" data-id="jxctD6fL_FQ">
+                    <div class="video-thumb">
+                        <img loading="lazy" src="https://img.youtube.com/vi/jxctD6fL_FQ/hqdefault.jpg" alt="Leg Curl Form">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-label">Lying Leg Curls &mdash; Bodybuilding.com Exercise Guide</div>
+                </div>
+            </div>
+
+            <div class="section-label">Core Finisher</div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <span class="exercise-name">Leg Raises + Plank Hold</span>
                     <span class="exercise-sets">2 Sets &mdash; to failure</span>
                 </div>
                 <div class="video-wrapper" data-id="Nw0LOKe3_l8">
                     <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/Nw0LOKe3_l8/hqdefault.jpg" alt="Leg Raise Form">
+                        <img loading="lazy" src="https://img.youtube.com/vi/Nw0LOKe3_l8/hqdefault.jpg" alt="Leg Raise Form">
                         <div class="play-btn"></div>
                     </div>
                     <div class="video-label">Hanging Leg Raise &mdash; Bodybuilding.com Exercise Guide</div>
@@ -245,309 +356,7 @@
 
     <!-- DAY 2 -->
     <div class="day-card day-2">
-        <div class="day-header">Day 2 &mdash; Hamstrings &amp; Calves</div>
-        <div class="day-body">
-            <div class="section-label">Hamstrings</div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">1. Leg Press</span>
-                    <span class="exercise-sets">3 Sets &mdash; 15, 12, 10 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="3R0SOJ3alTA">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/3R0SOJ3alTA/hqdefault.jpg" alt="Leg Press Form">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Leg Press &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">2. Back Lunges (Reverse Lunges)</span>
-                    <span class="exercise-sets">3 Sets &mdash; 10, 10, 8 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="xrPteyQLGAo">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/xrPteyQLGAo/hqdefault.jpg" alt="Reverse Lunges Form">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">How To Reverse Lunge &mdash; Proper Form</div>
-                </div>
-            </div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">3. Leg Curls</span>
-                    <span class="exercise-sets">3 Sets &mdash; 15, 12, 10 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="jxctD6fL_FQ">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/jxctD6fL_FQ/hqdefault.jpg" alt="Leg Curl Form">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Lying Leg Curls &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-
-            <div class="section-label">Calves</div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">4. Seated Calf Raise</span>
-                    <span class="exercise-sets">3 Sets &mdash; 15, 12, 10 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="JbyjNymZOt0">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/JbyjNymZOt0/hqdefault.jpg" alt="Seated Calf Raise">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">How to Do Seated Calf Raises</div>
-                </div>
-            </div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">5. Standing Calf Raise</span>
-                    <span class="exercise-sets">3 Sets &mdash; 15, 12, 10 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="MAMzF7iZNkc">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/MAMzF7iZNkc/hqdefault.jpg" alt="Standing Calf Raise">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Standing Calf Raises &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- DAY 3 -->
-    <div class="day-card day-3">
-        <div class="day-header">Day 3 &mdash; Abs &amp; Cardio</div>
-        <div class="day-body">
-            <div class="section-label">Abs Workout</div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">1. Leg Raises</span>
-                    <span class="exercise-sets">3 Sets &mdash; 10 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="Nw0LOKe3_l8">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/Nw0LOKe3_l8/hqdefault.jpg" alt="Leg Raises">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Hanging Leg Raise &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">2. Crunches</span>
-                    <span class="exercise-sets">3 Sets &mdash; 10 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="YdZakh0Pkwc">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/YdZakh0Pkwc/hqdefault.jpg" alt="Crunches Form">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Crunches &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">3. Mountain Climbers</span>
-                    <span class="exercise-sets">3 Sets &mdash; 10 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="nmwgirgXLYM">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/nmwgirgXLYM/hqdefault.jpg" alt="Mountain Climbers">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">How to Do a Mountain Climber &mdash; Boot Camp Workout</div>
-                </div>
-            </div>
-
-            <div class="section-label">Cardio</div>
-            <div class="cardio-info">
-                <strong>Interval Cardio &mdash; 30 minutes total</strong><br>
-                3 minutes walking (preferably on ground) + 1 minute running at your capacity. Repeat the cycle for 30 minutes.<br><br>
-                <em>Alternatives: sports, long walk, hiking, outdoor cycling, or HIIT</em>
-            </div>
-        </div>
-    </div>
-
-    <!-- DAY 4 -->
-    <div class="day-card day-4">
-        <div class="day-header">Day 4 &mdash; Back &amp; Biceps</div>
-        <div class="day-body">
-            <div class="section-label">Back Exercises</div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">1. Lat Pulldown</span>
-                    <span class="exercise-sets">3 Sets &mdash; 12, 10, 8 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="S0no-Q03h74">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/S0no-Q03h74/hqdefault.jpg" alt="Lat Pulldown Form">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Wide Grip Lat Pulldown &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">2. Seated Cable Row</span>
-                    <span class="exercise-sets">3 Sets &mdash; 12, 10, 8 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="IzoCF_b3cIY">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/IzoCF_b3cIY/hqdefault.jpg" alt="Cable Row Form">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Seated Cable Rows &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">3. One Arm Dumbbell Row</span>
-                    <span class="exercise-sets">3 Sets &mdash; 12, 10, 8 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="cpI-Q3VQrEA">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/cpI-Q3VQrEA/hqdefault.jpg" alt="Dumbbell Row Form">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">One-Arm Dumbbell Row &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">4. Back Extension / Hyperextension</span>
-                    <span class="exercise-sets">3 Sets &mdash; 12, 10, 8 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="qtjJUWCnDyE">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/qtjJUWCnDyE/hqdefault.jpg" alt="Back Extension Form">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Hyperextensions &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-
-            <div class="section-label">Biceps Exercises</div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">5. Seated Dumbbell Curl</span>
-                    <span class="exercise-sets">3 Sets &mdash; 12, 10, 8 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="3OZ2MT_5r3Q">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/3OZ2MT_5r3Q/hqdefault.jpg" alt="Seated Curl Form">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Dumbbell Bicep Curl &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">6. Hammer Curl</span>
-                    <span class="exercise-sets">3 Sets &mdash; 12, 10, 8 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="0IAM2YtviQY">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/0IAM2YtviQY/hqdefault.jpg" alt="Hammer Curl Form">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Hammer Curl &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- DAY 5 -->
-    <div class="day-card day-5">
-        <div class="day-header">Day 5 &mdash; Abs &amp; Cardio</div>
-        <div class="day-body">
-            <div class="section-label">Abs Workout</div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">1. Leg Raises</span>
-                    <span class="exercise-sets">3 Sets &mdash; 10 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="Nw0LOKe3_l8">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/Nw0LOKe3_l8/hqdefault.jpg" alt="Leg Raises">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Hanging Leg Raise &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">2. Crunches</span>
-                    <span class="exercise-sets">3 Sets &mdash; 10 reps</span>
-                </div>
-                <div class="video-wrapper" data-id="YdZakh0Pkwc">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/YdZakh0Pkwc/hqdefault.jpg" alt="Crunches">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Crunches &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">3. Plank Hold</span>
-                    <span class="exercise-sets">3 Sets &mdash; max hold</span>
-                </div>
-                <div class="video-wrapper" data-id="tgbrMdfuGJA">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/tgbrMdfuGJA/hqdefault.jpg" alt="Plank Hold">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">Plank &mdash; Bodybuilding.com Exercise Guide</div>
-                </div>
-            </div>
-
-            <div class="exercise">
-                <div class="exercise-header">
-                    <span class="exercise-name">4. Side Plank Hold</span>
-                    <span class="exercise-sets">2 Sets &mdash; max hold (each side)</span>
-                </div>
-                <div class="video-wrapper" data-id="XeN4pEZZJNI">
-                    <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/XeN4pEZZJNI/hqdefault.jpg" alt="Side Plank">
-                        <div class="play-btn"></div>
-                    </div>
-                    <div class="video-label">How To Do A Side Plank &mdash; The Right Way</div>
-                </div>
-            </div>
-
-            <div class="section-label">Cardio</div>
-            <div class="cardio-info">
-                <strong>Interval Cardio &mdash; 30 minutes total</strong><br>
-                3 minutes walking (preferably on ground) + 1 minute running at your capacity. Repeat the cycle for 30 minutes.<br><br>
-                <em>Alternatives: sports, long walk, hiking, outdoor cycling, or HIIT</em>
-            </div>
-        </div>
-    </div>
-
-    <!-- DAY 6 -->
-    <div class="day-card day-6">
-        <div class="day-header">Day 6 &mdash; Chest, Shoulders &amp; Triceps</div>
+        <div class="day-header">Day 2 &mdash; Chest, Shoulders &amp; Triceps</div>
         <div class="day-body">
             <div class="section-label">Chest Exercises</div>
 
@@ -558,7 +367,7 @@
                 </div>
                 <div class="video-wrapper" data-id="RsobeWfbBcY">
                     <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/RsobeWfbBcY/hqdefault.jpg" alt="Bench Press Form">
+                        <img loading="lazy" src="https://img.youtube.com/vi/RsobeWfbBcY/hqdefault.jpg" alt="Bench Press Form">
                         <div class="play-btn"></div>
                     </div>
                     <div class="video-label">Barbell Bench Press &mdash; Bodybuilding.com Exercise Guide</div>
@@ -568,11 +377,11 @@
             <div class="exercise">
                 <div class="exercise-header">
                     <span class="exercise-name">2. Incline Dumbbell Press</span>
-                    <span class="exercise-sets">3 Sets &mdash; 12, 10, 8 reps</span>
+                    <span class="exercise-sets">2 Sets &mdash; 12, 10 reps</span>
                 </div>
                 <div class="video-wrapper" data-id="DnV3R4vp3K0">
                     <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/DnV3R4vp3K0/hqdefault.jpg" alt="Incline DB Press Form">
+                        <img loading="lazy" src="https://img.youtube.com/vi/DnV3R4vp3K0/hqdefault.jpg" alt="Incline DB Press Form">
                         <div class="play-btn"></div>
                     </div>
                     <div class="video-label">Incline Dumbbell Press &mdash; Bodybuilding.com Exercise Guide</div>
@@ -586,7 +395,7 @@
                 </div>
                 <div class="video-wrapper" data-id="aoP0s_MjN-g">
                     <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/aoP0s_MjN-g/hqdefault.jpg" alt="Cable Crossover Form">
+                        <img loading="lazy" src="https://img.youtube.com/vi/aoP0s_MjN-g/hqdefault.jpg" alt="Cable Crossover Form">
                         <div class="play-btn"></div>
                     </div>
                     <div class="video-label">Cable Crossover &mdash; Bodybuilding.com Exercise Guide</div>
@@ -602,7 +411,7 @@
                 </div>
                 <div class="video-wrapper" data-id="tzZMsrzG_zE">
                     <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/tzZMsrzG_zE/hqdefault.jpg" alt="Shoulder Press Form">
+                        <img loading="lazy" src="https://img.youtube.com/vi/tzZMsrzG_zE/hqdefault.jpg" alt="Shoulder Press Form">
                         <div class="play-btn"></div>
                     </div>
                     <div class="video-label">Dumbbell Shoulder Press &mdash; Bodybuilding.com Exercise Guide</div>
@@ -616,7 +425,7 @@
                 </div>
                 <div class="video-wrapper" data-id="LT1Eo-q58yg">
                     <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/LT1Eo-q58yg/hqdefault.jpg" alt="Lateral Raise Form">
+                        <img loading="lazy" src="https://img.youtube.com/vi/LT1Eo-q58yg/hqdefault.jpg" alt="Lateral Raise Form">
                         <div class="play-btn"></div>
                     </div>
                     <div class="video-label">Side Lateral Raise &mdash; Bodybuilding.com Exercise Guide</div>
@@ -627,12 +436,12 @@
 
             <div class="exercise">
                 <div class="exercise-header">
-                    <span class="exercise-name">6. Tricep Cable Pushdown</span>
+                    <span class="exercise-name">6. Pulley Push Down (Overhand Grip)</span>
                     <span class="exercise-sets">2 Sets &mdash; 15, 12 reps</span>
                 </div>
                 <div class="video-wrapper" data-id="HIKzvHkibWc">
                     <div class="video-thumb">
-                        <img src="https://img.youtube.com/vi/HIKzvHkibWc/hqdefault.jpg" alt="Tricep Pushdown Form">
+                        <img loading="lazy" src="https://img.youtube.com/vi/HIKzvHkibWc/hqdefault.jpg" alt="Tricep Pushdown Form">
                         <div class="play-btn"></div>
                     </div>
                     <div class="video-label">Triceps Pushdown &mdash; Bodybuilding.com Exercise Guide</div>
@@ -641,29 +450,346 @@
         </div>
     </div>
 
+    <!-- DAY 3 -->
+    <div class="rest-day">
+        <h2>Day 3 &mdash; Active Rest Day</h2>
+        <p>Play a game, go for a walk, or do light recreational activity. Stay active but let your muscles recover.</p>
+    </div>
+
+    <!-- DAY 4 -->
+    <div class="day-card day-4">
+        <div class="day-header">Day 4 &mdash; Abs &amp; Cardio</div>
+        <div class="day-body">
+            <div class="section-label">Abs Workout</div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <span class="exercise-name">1. Leg Raises</span>
+                    <span class="exercise-sets">3 Sets &mdash; 10 reps</span>
+                </div>
+                <div class="video-wrapper" data-id="Nw0LOKe3_l8">
+                    <div class="video-thumb">
+                        <img loading="lazy" src="https://img.youtube.com/vi/Nw0LOKe3_l8/hqdefault.jpg" alt="Leg Raises">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-label">Hanging Leg Raise &mdash; Bodybuilding.com Exercise Guide</div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <span class="exercise-name">2. Crunches</span>
+                    <span class="exercise-sets">3 Sets &mdash; 10 reps</span>
+                </div>
+                <div class="video-wrapper" data-id="YdZakh0Pkwc">
+                    <div class="video-thumb">
+                        <img loading="lazy" src="https://img.youtube.com/vi/YdZakh0Pkwc/hqdefault.jpg" alt="Crunches Form">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-label">Crunches &mdash; Bodybuilding.com Exercise Guide</div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <span class="exercise-name">3. Mountain Climbers</span>
+                    <span class="exercise-sets">3 Sets &mdash; 10 reps</span>
+                </div>
+                <div class="video-wrapper" data-id="nmwgirgXLYM">
+                    <div class="video-thumb">
+                        <img loading="lazy" src="https://img.youtube.com/vi/nmwgirgXLYM/hqdefault.jpg" alt="Mountain Climbers">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-label">How to Do a Mountain Climber &mdash; Boot Camp Workout</div>
+                </div>
+            </div>
+
+            <div class="section-label">Cardio</div>
+            <div class="cardio-info">
+                <strong>Interval Cardio &mdash; 30 minutes total</strong><br>
+                3 minutes walking on treadmill or ground (preferably ground) + 1 minute running at your capacity. Repeat this cycle for 30 minutes.<br><br>
+                <em>Alternatives: sports, long walk, hiking, outdoor cycling, or HIIT</em>
+            </div>
+        </div>
+    </div>
+
+    <!-- DAY 5 -->
+    <div class="day-card day-5">
+        <div class="day-header">Day 5 &mdash; Back &amp; Biceps</div>
+        <div class="day-body">
+            <div class="section-label">Back Exercises</div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <span class="exercise-name">1. Lat Pulldown</span>
+                    <span class="exercise-sets">3 Sets &mdash; 12, 10, 8 reps</span>
+                </div>
+                <div class="video-wrapper" data-id="S0no-Q03h74">
+                    <div class="video-thumb">
+                        <img loading="lazy" src="https://img.youtube.com/vi/S0no-Q03h74/hqdefault.jpg" alt="Lat Pulldown Form">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-label">Wide Grip Lat Pulldown &mdash; Bodybuilding.com Exercise Guide</div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <span class="exercise-name">2. Seated Cable Row</span>
+                    <span class="exercise-sets">3 Sets &mdash; 12, 10, 8 reps</span>
+                </div>
+                <div class="video-wrapper" data-id="IzoCF_b3cIY">
+                    <div class="video-thumb">
+                        <img loading="lazy" src="https://img.youtube.com/vi/IzoCF_b3cIY/hqdefault.jpg" alt="Cable Row Form">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-label">Seated Cable Rows &mdash; Bodybuilding.com Exercise Guide</div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <span class="exercise-name">3. Pull Up</span>
+                    <span class="exercise-sets">2 Sets &mdash; to failure</span>
+                </div>
+                <div class="video-wrapper" data-id="WXMKjV11lAk">
+                    <div class="video-thumb">
+                        <img loading="lazy" src="https://img.youtube.com/vi/WXMKjV11lAk/hqdefault.jpg" alt="Pull Up Form">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-label">Pullups &mdash; Bodybuilding.com Exercise Guide</div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <span class="exercise-name">4. Back Extension / Hyperextension</span>
+                    <span class="exercise-sets">3 Sets &mdash; 12, 10, 8 reps</span>
+                </div>
+                <div class="video-wrapper" data-id="qtjJUWCnDyE">
+                    <div class="video-thumb">
+                        <img loading="lazy" src="https://img.youtube.com/vi/qtjJUWCnDyE/hqdefault.jpg" alt="Back Extension Form">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-label">Hyperextensions &mdash; Bodybuilding.com Exercise Guide</div>
+                </div>
+            </div>
+
+            <div class="section-label">Biceps Exercises</div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <span class="exercise-name">5. Seated Dumbbell Curl</span>
+                    <span class="exercise-sets">3 Sets &mdash; 12, 10, 8 reps</span>
+                </div>
+                <div class="video-wrapper" data-id="3OZ2MT_5r3Q">
+                    <div class="video-thumb">
+                        <img loading="lazy" src="https://img.youtube.com/vi/3OZ2MT_5r3Q/hqdefault.jpg" alt="Seated Curl Form">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-label">Dumbbell Bicep Curl &mdash; Bodybuilding.com Exercise Guide</div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <span class="exercise-name">6. Hammer Curl</span>
+                    <span class="exercise-sets">2 Sets &mdash; 12, 10 reps</span>
+                </div>
+                <div class="video-wrapper" data-id="0IAM2YtviQY">
+                    <div class="video-thumb">
+                        <img loading="lazy" src="https://img.youtube.com/vi/0IAM2YtviQY/hqdefault.jpg" alt="Hammer Curl Form">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-label">Hammer Curl &mdash; Bodybuilding.com Exercise Guide</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DAY 6 -->
+    <div class="day-card day-6">
+        <div class="day-header">Day 6 &mdash; Abs &amp; Cardio</div>
+        <div class="day-body">
+            <div class="section-label">Abs Workout</div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <span class="exercise-name">1. Leg Raises</span>
+                    <span class="exercise-sets">3 Sets &mdash; 10 reps</span>
+                </div>
+                <div class="video-wrapper" data-id="Nw0LOKe3_l8">
+                    <div class="video-thumb">
+                        <img loading="lazy" src="https://img.youtube.com/vi/Nw0LOKe3_l8/hqdefault.jpg" alt="Leg Raises">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-label">Hanging Leg Raise &mdash; Bodybuilding.com Exercise Guide</div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <span class="exercise-name">2. Crunches</span>
+                    <span class="exercise-sets">3 Sets &mdash; 10 reps</span>
+                </div>
+                <div class="video-wrapper" data-id="YdZakh0Pkwc">
+                    <div class="video-thumb">
+                        <img loading="lazy" src="https://img.youtube.com/vi/YdZakh0Pkwc/hqdefault.jpg" alt="Crunches">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-label">Crunches &mdash; Bodybuilding.com Exercise Guide</div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-header">
+                    <span class="exercise-name">3. Mountain Climbers</span>
+                    <span class="exercise-sets">3 Sets &mdash; 10 reps</span>
+                </div>
+                <div class="video-wrapper" data-id="nmwgirgXLYM">
+                    <div class="video-thumb">
+                        <img loading="lazy" src="https://img.youtube.com/vi/nmwgirgXLYM/hqdefault.jpg" alt="Mountain Climbers">
+                        <div class="play-btn"></div>
+                    </div>
+                    <div class="video-label">How to Do a Mountain Climber &mdash; Boot Camp Workout</div>
+                </div>
+            </div>
+
+            <div class="section-label">Cardio</div>
+            <div class="cardio-info">
+                <strong>Interval Cardio &mdash; 30 minutes total</strong><br>
+                3 minutes walking on treadmill or ground (preferably ground) + 1 minute running at your capacity. Repeat this cycle for 30 minutes.<br><br>
+                <em>Alternatives: sports, long walk, hiking, outdoor cycling, or HIIT</em>
+            </div>
+        </div>
+    </div>
+
     <!-- DAY 7 -->
     <div class="rest-day">
         <h2>Day 7 &mdash; Active Rest Day</h2>
-        <p>Light walking, stretching, mobility work. Stay active but let your muscles recover.</p>
+        <p>Stretching, mobility work, and recovery. Stay active but let your muscles heal.</p>
     </div>
 
+    <!-- STRETCHING & YOGA -->
     <div class="warmup-box">
-        <h3>Post-Workout Stretching (Mandatory after every session)</h3>
+        <h3>Daily Stretching &amp; Mobility (Compulsory after every session)</h3>
         <ul>
-            <li>Forward bending &amp; wide leg spread cross-leg touch</li>
-            <li>Back bending (Chakrasana / Bridge or Half Bridge)</li>
+            <li>Bridge Pose (Setu Bandhasana / Chakrasana)</li>
+            <li>Makarasana (Crocodile Pose)</li>
+            <li>Cobra Pose (Bhujangasana)</li>
             <li>Shoulder stretch, neck stretch, triceps stretch</li>
             <li>Hamstring and quadriceps stretch</li>
             <li>Hanging (dead hang from bar)</li>
         </ul>
     </div>
 
+    <!-- MEDITATION & BREATHING -->
+    <div class="warmup-box">
+        <h3>Daily Meditation &amp; Breathing (Compulsory)</h3>
+        <ul>
+            <li><strong>Meditation &amp; Deep Breathing</strong> &mdash; 10 minutes</li>
+            <li><strong>Anuloma Viloma</strong> (Alternate Nostril Breathing) &mdash; 10 minutes</li>
+            <li><strong>Brahmari</strong> (Bee Breathing) &mdash; 5 minutes</li>
+        </ul>
+    </div>
+
+    <!-- MEAL PLAN -->
+    <div class="meal-plan">
+        <div class="meal-plan-header">Advanced Fat Loss + Performance Meal Plan</div>
+        <div class="meal-plan-body">
+
+            <div class="meal-card">
+                <div>
+                    <div class="meal-name">Meal 1 &mdash; Morning</div>
+                    <ul class="meal-items">
+                        <li>2 Egg Whites + 1 Whole Egg</li>
+                        <li>1 Scoop Plant Protein + Coconut Oil</li>
+                        <li>50&ndash;100g Pineapple</li>
+                        <li>30g Walnuts</li>
+                    </ul>
+                </div>
+                <div class="meal-macros">
+                    <div class="cal">~450 kcal</div>
+                    <div class="prot">Protein ~35g</div>
+                </div>
+            </div>
+
+            <div class="meal-card">
+                <div>
+                    <div class="meal-name">Meal 2 &mdash; Afternoon</div>
+                    <ul class="meal-items">
+                        <li>100g Paneer</li>
+                        <li>100g Rice</li>
+                        <li>200g Salad / Sabji</li>
+                    </ul>
+                </div>
+                <div class="meal-macros">
+                    <div class="cal">~500 kcal</div>
+                    <div class="prot">Protein ~20g</div>
+                </div>
+            </div>
+
+            <div class="meal-card">
+                <div>
+                    <div class="meal-name">Meal 3 &mdash; Evening</div>
+                    <ul class="meal-items">
+                        <li>100g Chicken Breast</li>
+                        <li>200&ndash;300g Salad</li>
+                        <li>50&ndash;100g Potato / Sweet Potato</li>
+                        <li>Olive Oil</li>
+                    </ul>
+                </div>
+                <div class="meal-macros">
+                    <div class="cal">~450 kcal</div>
+                    <div class="prot">Protein ~30g</div>
+                </div>
+            </div>
+
+            <div class="meal-card">
+                <div>
+                    <div class="meal-name">Before Bed</div>
+                    <ul class="meal-items">
+                        <li>Isabgol (Psyllium Husk)</li>
+                    </ul>
+                </div>
+                <div class="meal-macros">
+                    <div class="cal">~20 kcal</div>
+                    <div class="prot">Fiber boost</div>
+                </div>
+            </div>
+
+            <div class="meal-totals">
+                <h3>Daily Totals</h3>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">~1400&ndash;1500</div>
+                        <div class="stat-label">Calories (kcal)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">~85&ndash;95g</div>
+                        <div class="stat-label">Protein</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">3&ndash;4L</div>
+                        <div class="stat-label">Water Daily</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="meal-note">
+                <strong>Note:</strong> This meal plan is optimized for fat loss + running performance. Stay hydrated with 3&ndash;4 litres of water daily. Adjust portions based on your body weight and activity level.
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTES -->
     <div class="notes-box">
         <h2>Things to Remember</h2>
         <ul>
             <li><strong>Diet is 80%, workout is 20%.</strong> Training is the stimulant &mdash; your results come from nutrition and lifestyle.</li>
+            <li><strong>Every day mobility and stretching is compulsory.</strong> Bridge pose, Makarasana, Cobra pose after every session.</li>
+            <li><strong>Daily meditation &amp; deep breathing:</strong> 10 mins meditation, 10 mins Anuloma Viloma, 5 mins Brahmari. This manages cortisol and can boost your gains by up to 40%.</li>
             <li><strong>Stay active throughout the day.</strong> Use stairs, walk for distances up to 1 km instead of driving.</li>
-            <li><strong>Deep breathing &amp; meditation</strong> &mdash; at least 5 minutes daily to manage stress and cortisol. This can increase your gains up to 40%.</li>
             <li><strong>Static stretching after every workout is non-negotiable.</strong> It prevents injuries and increases strength.</li>
             <li><strong>Meet friends and play with family.</strong> Social connection supports recovery and well-being.</li>
         </ul>
@@ -701,71 +827,6 @@
     </div>
 </div>
 
-<style>
-    #chat-toggle {
-        position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px;
-        background: #e94560; border-radius: 50%; display: flex; align-items: center;
-        justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(233,69,96,0.4);
-        z-index: 1000; transition: transform 0.2s;
-    }
-    #chat-toggle:hover { transform: scale(1.1); }
-    #chat-box {
-        position: fixed; bottom: 100px; right: 25px; width: 370px; max-height: 520px;
-        background: #1a1a2e; border: 1px solid #333; border-radius: 16px;
-        display: none; flex-direction: column; z-index: 1000;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden;
-    }
-    #chat-header {
-        padding: 16px 18px; background: linear-gradient(90deg, #e94560, #c23152);
-        display: flex; justify-content: space-between; align-items: center; color: #fff;
-    }
-    #chat-messages {
-        flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column;
-        gap: 10px; max-height: 300px; min-height: 200px;
-    }
-    .chat-msg {
-        padding: 10px 14px; border-radius: 12px; font-size: 0.9rem;
-        line-height: 1.5; max-width: 85%; word-wrap: break-word;
-    }
-    .bot-msg {
-        background: #2a2a4a; color: #e0e0e0; align-self: flex-start;
-        border-bottom-left-radius: 4px;
-    }
-    .user-msg {
-        background: #e94560; color: #fff; align-self: flex-end;
-        border-bottom-right-radius: 4px;
-    }
-    .typing-msg { font-style: italic; color: #888; }
-    #chat-suggestions {
-        padding: 8px 16px; display: flex; flex-wrap: wrap; gap: 6px;
-        border-top: 1px solid #2a2a3e;
-    }
-    .suggestion {
-        background: #2a2a4a; color: #ccc; border: 1px solid #3a3a5a; border-radius: 20px;
-        padding: 5px 12px; font-size: 0.78rem; cursor: pointer; transition: all 0.2s;
-    }
-    .suggestion:hover { background: #e94560; color: #fff; border-color: #e94560; }
-    #chat-input-area {
-        padding: 12px 16px; display: flex; gap: 8px; border-top: 1px solid #2a2a3e;
-        background: #141422;
-    }
-    #chat-input {
-        flex: 1; background: #2a2a4a; border: 1px solid #3a3a5a; border-radius: 8px;
-        padding: 10px 14px; color: #fff; font-size: 0.9rem; outline: none;
-    }
-    #chat-input:focus { border-color: #e94560; }
-    #chat-input::placeholder { color: #666; }
-    #chat-send {
-        background: #e94560; border: none; border-radius: 8px; width: 42px;
-        display: flex; align-items: center; justify-content: center; cursor: pointer;
-        transition: background 0.2s;
-    }
-    #chat-send:hover { background: #c23152; }
-    @media (max-width: 600px) {
-        #chat-box { width: calc(100% - 20px); right: 10px; bottom: 90px; }
-    }
-</style>
-
 <script>
 var chatOpen = false;
 function toggleChat() {
@@ -781,15 +842,17 @@ function sendMsg() {
     var q = input.value.trim();
     if (!q) return;
     var msgs = document.getElementById('chat-messages');
-    msgs.innerHTML += '<div class="chat-msg user-msg">' + escHtml(q) + '</div>';
+    msgs.insertAdjacentHTML('beforeend', '<div class="chat-msg user-msg">' + escHtml(q) + '</div>');
     input.value = '';
-    msgs.innerHTML += '<div class="chat-msg bot-msg typing-msg" id="typing">Thinking...</div>';
+    var existing = msgs.querySelectorAll('.typing-msg');
+    existing.forEach(function(el) { el.remove(); });
+    msgs.insertAdjacentHTML('beforeend', '<div class="chat-msg bot-msg typing-msg">Thinking...</div>');
     msgs.scrollTop = msgs.scrollHeight;
     setTimeout(function() {
-        var el = document.getElementById('typing');
-        if (el) el.remove();
+        var els = msgs.querySelectorAll('.typing-msg');
+        els.forEach(function(el) { el.remove(); });
         var answer = getAnswer(q);
-        msgs.innerHTML += '<div class="chat-msg bot-msg">' + answer + '</div>';
+        msgs.insertAdjacentHTML('beforeend', '<div class="chat-msg bot-msg">' + answer + '</div>');
         msgs.scrollTop = msgs.scrollHeight;
     }, 800 + Math.random() * 700);
 }
@@ -801,44 +864,54 @@ function getAnswer(q) {
     if (q.match(/heavy|weight|how much.*lift|start.*weight|load/))
         return "Start with a weight you can control for all reps with perfect form. For squats/bench, begin with just the empty bar (20kg). For dumbbells, start with 5-8kg. If the last 2 reps of each set feel challenging but doable, that's the right weight. Increase by 2.5kg when you can complete all sets and reps comfortably.";
     if (q.match(/eat|diet|food|nutrition|meal|calori/))
-        return "Focus on whole foods: lean proteins (chicken, fish, eggs, lentils), complex carbs (rice, oats, sweet potato), healthy fats (nuts, olive oil), and lots of vegetables. Eat 3 meals + 2 small snacks. Remember the 80/20 rule \u2014 diet is 80% of your results. Aim for a slight caloric deficit if losing fat, or slight surplus if building muscle.";
+        return "Your meal plan targets ~1400-1500 kcal with ~85-95g protein daily:<br><strong>Meal 1:</strong> 2 egg whites + 1 whole egg, plant protein, pineapple, walnuts (~450 kcal)<br><strong>Meal 2:</strong> 100g paneer, 100g rice, salad/sabji (~500 kcal)<br><strong>Meal 3:</strong> 100g chicken breast, salad, potato, olive oil (~450 kcal)<br><strong>Before bed:</strong> Isabgol (psyllium husk)<br>Stay hydrated with 3-4L water daily.";
     if (q.match(/swap|replace|substitut|alternative|change.*exercise/))
-        return "Yes! You can swap similar movement patterns:<br>\u2022 Squats \u2192 Goblet squats or Smith machine squats<br>\u2022 Bench press \u2192 Dumbbell press or push-ups<br>\u2022 Lat pulldown \u2192 Pull-ups or resistance band pulldowns<br>\u2022 Cable crossover \u2192 Dumbbell flyes<br>Keep the same muscle group and rep scheme.";
+        return "Yes! You can swap similar movement patterns:<br>\u2022 Squats \u2192 Goblet squats or Smith machine squats<br>\u2022 Bench press \u2192 Dumbbell press or push-ups<br>\u2022 Lat pulldown \u2192 Pull-ups or resistance band pulldowns<br>\u2022 Cable crossover \u2192 Dumbbell flyes<br>\u2022 Step up \u2192 Bulgarian split squats<br>Keep the same muscle group and rep scheme.";
     if (q.match(/miss|skip|forgot|absent/))
         return "Don't stress! Simply continue with the next scheduled day. Don't try to double up or cram two workouts together. Consistency over weeks matters more than one missed day. If you miss 3+ days, restart the current week from Day 1.";
     if (q.match(/sore|pain|doms|hurt|muscle.*ache/))
         return "Muscle soreness (DOMS) is normal, especially in the first 1-2 weeks. It peaks 24-48 hours after training. Keep moving \u2014 light walking and stretching help. Stay hydrated and get 7-8 hours of sleep. If pain is sharp, in a joint, or doesn't improve after 3-4 days, see a doctor.";
     if (q.match(/protein|supplement|whey|creatine|bcaa/))
-        return "For general fitness, aim for 1.4-1.8g protein per kg of bodyweight daily from whole foods first. A whey protein shake is convenient post-workout but not mandatory. Creatine (5g/day) is well-researched and safe for most people. Always consult your doctor before supplements, especially if you have any health conditions.";
+        return "Your meal plan provides ~85-95g protein daily from whole foods (eggs, paneer, chicken). A plant protein shake is included in Meal 1. Creatine (5g/day) is well-researched and safe for most people. Always consult your doctor before supplements, especially if you have any health conditions.";
     if (q.match(/rest|recovery|sleep|off.*day/))
-        return "Rest days are growth days! Your muscles repair and grow during rest, not during the workout. Get 7-8 hours of sleep, stay hydrated, do light stretching or walking on rest days. Deep breathing and meditation (5+ minutes) helps manage cortisol and can boost recovery by up to 40%.";
+        return "You have 2 rest days (Days 3 & 7) built into this plan. Your muscles repair and grow during rest, not during the workout. Get 7-8 hours of sleep, stay hydrated, do bridge pose, makarasana, and cobra pose daily. Daily meditation (10 min), Anuloma Viloma (10 min), and Brahmari (5 min) help manage cortisol and boost recovery by up to 40%.";
     if (q.match(/cardio|running|walk|treadmill|hiit|interval/))
-        return "This plan uses interval cardio: 3 min walking + 1 min running, repeated for 30 minutes. This is great for fat burning while preserving muscle. As you get fitter, increase the run duration or speed. Alternatives: cycling, swimming, hiking, sports, or HIIT circuits.";
+        return "This plan uses interval cardio on Days 4 & 6: 3 min walking + 1 min running, repeated for 30 minutes. Preferably on ground rather than treadmill. This is great for fat burning while preserving muscle. As you get fitter, increase the run duration or speed. Alternatives: cycling, swimming, hiking, sports, or HIIT circuits.";
     if (q.match(/warm|stretch|cool|flex|mobil/))
-        return "Always warm up 5-10 minutes before training: neck/shoulder rotations, leg kicks, shadow boxing, light walking, dynamic stretches. After every workout, do static stretching: forward bends, back bridges, shoulder/hamstring/quad stretches, and dead hangs. This is non-negotiable \u2014 it prevents injuries and increases strength.";
+        return "Always warm up 5-10 minutes before training: rotations, leg kicks, shadow boxing, light walking, dynamic stretches. After every workout, do compulsory stretching: Bridge Pose, Makarasana (Crocodile Pose), Cobra Pose, shoulder/hamstring/quad stretches, and dead hangs. This is non-negotiable \u2014 it prevents injuries and increases strength.";
     if (q.match(/result|progress|long|when|timeline|week/))
         return "With consistency:<br>\u2022 <strong>Week 1-2:</strong> Better energy, improved form<br>\u2022 <strong>Week 3-4:</strong> Noticeable strength gains, clothes fit differently<br>\u2022 <strong>Month 2-3:</strong> Visible muscle definition, significant fat loss<br>Take progress photos every 2 weeks \u2014 the mirror and how clothes fit matter more than the scale.";
-    if (q.match(/breath|meditat|stress|cortisol|mental/))
-        return "Deep breathing and meditation for 5+ minutes daily helps manage cortisol (stress hormone). High cortisol blocks fat loss and muscle growth. Try box breathing: inhale 4 seconds, hold 4, exhale 4, hold 4. Do this after workouts or before bed. It can boost your gains by up to 40%.";
+    if (q.match(/breath|meditat|stress|cortisol|mental|anulom|brahmari|pranayam/))
+        return "Your daily breathing practice:<br>\u2022 <strong>Meditation & Deep Breathing:</strong> 10 minutes<br>\u2022 <strong>Anuloma Viloma</strong> (Alternate Nostril Breathing): 10 minutes<br>\u2022 <strong>Brahmari</strong> (Bee Breathing): 5 minutes<br>This manages cortisol (stress hormone), improves focus, and can boost gains by up to 40%. Do this after workouts or before bed.";
     if (q.match(/water|hydrat|drink|fluid/))
-        return "Aim for 2-3 litres of water daily, more on training days. Drink before, during, and after workouts. Dehydration reduces performance by 10-20% and slows recovery. A good rule: if your urine is pale yellow, you're well hydrated.";
+        return "Aim for 3-4 litres of water daily, more on training days. Drink before, during, and after workouts. Dehydration reduces performance by 10-20% and slows recovery. A good rule: if your urine is pale yellow, you're well hydrated.";
     if (q.match(/form|technique|mind.*muscle|connection/))
         return "Muscle-mind connection is the #1 secret to building muscle fast. Focus on squeezing the target muscle through every rep. Start with light weight \u2014 even an empty barbell \u2014 and lift it like it's 100kg. Control the weight on the way down (2-3 seconds). Never use momentum or swing.";
     if (q.match(/plank|core|abs|six.*pack/))
-        return "This plan trains abs twice per week (Days 3 & 5) with leg raises, crunches, mountain climbers, planks, and side planks. For visible abs, body fat must drop below ~15% for men or ~22% for women. That's mostly diet \u2014 abs are built in the gym but revealed in the kitchen.";
-    return "Great question! In the full version, this would be answered by an AI trained on fitness and nutrition science. For now, check the workout plan sections above or try asking about: <strong>weight, diet, swapping exercises, soreness, protein, rest days, cardio, stretching, or progress timeline</strong>.";
+        return "This plan trains abs twice per week (Days 4 & 6) with leg raises, crunches, and mountain climbers. Day 1 also finishes with a core finisher (leg raises + plank). For visible abs, body fat must drop below ~15% for men or ~22% for women. That's mostly diet \u2014 abs are built in the gym but revealed in the kitchen.";
+    if (q.match(/yoga|cobra|bridge|makara|pose/))
+        return "Your daily yoga stretches (compulsory after every session):<br>\u2022 <strong>Bridge Pose</strong> (Setu Bandhasana) \u2014 opens chest, strengthens back<br>\u2022 <strong>Makarasana</strong> (Crocodile Pose) \u2014 relaxes spine, reduces stress<br>\u2022 <strong>Cobra Pose</strong> (Bhujangasana) \u2014 strengthens back, improves flexibility<br>Hold each for 30-60 seconds and breathe deeply.";
+    if (q.match(/pull.*up/))
+        return "Pull-ups are on Day 5 \u2014 2 sets to failure. If you can't do a full pull-up yet, try these progressions:<br>\u2022 Assisted pull-ups (band or machine)<br>\u2022 Negative pull-ups (jump up, lower slowly)<br>\u2022 Lat pulldowns (already in the plan)<br>Aim to add 1 rep each week. Grip the bar shoulder-width, pull until chin clears the bar.";
+    if (q.match(/step.*up/))
+        return "Step-ups are on Day 1 \u2014 2 sets of 15 and 12 reps. Use a bench or sturdy platform at knee height. Hold dumbbells at your sides. Step up fully, drive through the heel, then step back down. Alternate legs or do all reps on one side first. Great for quad and glute activation.";
+    return "Great question! In the full version, this would be answered by an AI trained on fitness and nutrition science. For now, check the workout plan and meal plan sections above or try asking about: <strong>weight, diet, swapping exercises, soreness, protein, rest days, cardio, stretching, yoga poses, breathing, or progress timeline</strong>.";
 }
 
 document.querySelectorAll('.video-wrapper').forEach(function(wrapper) {
     wrapper.addEventListener('click', function() {
         var id = this.getAttribute('data-id');
-        var start = this.getAttribute('data-start') || '0';
-        var end = this.getAttribute('data-end') || '60';
+        if (!id || !/^[a-zA-Z0-9_-]+$/.test(id)) return;
+        var start = this.getAttribute('data-start');
+        var end = this.getAttribute('data-end');
+        var params = 'autoplay=1&rel=0';
+        if (start && /^\d+$/.test(start)) params += '&start=' + start;
+        if (end && /^\d+$/.test(end)) params += '&end=' + end;
         var label = this.querySelector('.video-label');
         var labelHTML = label ? label.outerHTML : '';
         this.innerHTML =
             '<div class="video-player">' +
-                '<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&start=' + start + '&end=' + end + '" ' +
+                '<iframe src="https://www.youtube.com/embed/' + id + '?' + params + '" ' +
                 'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
                 'allowfullscreen></iframe>' +
             '</div>' + labelHTML;
